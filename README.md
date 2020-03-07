@@ -1,4 +1,5 @@
 # fogefoge
-===JOGUINHO DO CURSO DE RUBY III ===
 
-joguinho ruby
+Jogo produzido no curso de Ruby III - estilo PacMan
+
+
