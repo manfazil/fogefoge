@@ -25,7 +25,7 @@ def game_over
 end
 
 def joga(nome)
-    mapa = le_mapa(2)
+    mapa = le_mapa(4)
     while true
         desenha mapa
         direcao = pede_movimento
@@ -36,8 +36,12 @@ def joga(nome)
         if !posicao_valida? mapa, nova_posicao.to_array
             next
         end		
+            
 
         heroi.remove_do mapa
+        if mapa[nova_posicao.linha][nova_posicao.coluna] == "*"
+            remove mapa, nova_posicao,4
+        end
         nova_posicao.coloca_no mapa
                 
 		mapa = move_fantasmas mapa
@@ -46,6 +50,25 @@ def joga(nome)
             break
         end
     end
+end
+
+def executa_remocao mapa, posicao, quantidade
+    if mapa[posicao.linha][posicao.coluna] == "X"
+        return
+    end
+    mapa[posicao.linha][posicao.coluna] = " "
+    remove mapa, posicao, quantidade - 1
+end
+
+def remove mapa,posicao,quantidade
+    if quantidade == 0
+        return
+    end
+    executa_remocao mapa, posicao.direita, quantidade
+    executa_remocao mapa, posicao.esquerda, quantidade
+    executa_remocao mapa, posicao.cima, quantidade
+    executa_remocao mapa, posicao.baixo, quantidade
+
 end
 
 def inicia_fogefoge
